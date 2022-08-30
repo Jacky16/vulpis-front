@@ -20,12 +20,12 @@ const menuItems = [
     path: "/",
   },
   {
-    name: "Historial",
-    path: "/historial",
-  },
-  {
     name: "Aspirantes",
     path: "/aspirantes",
+  },
+  {
+    name: "Historial",
+    path: "/historial",
   },
 ];
 </script>

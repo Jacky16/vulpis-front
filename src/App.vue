@@ -4,12 +4,6 @@ import NavBar from "./components/NavBar.vue";
 </script>
 
 <template>
-  <div class="bg-gray-200 h-screen">
-    <NavBar></NavBar>
-    <div class="">
-      <router-view></router-view>
-    </div>
-  </div>
+  <NavBar></NavBar>
+  <div class="container mx-auto"><router-view></router-view></div>
 </template>
-
-<style scoped></style>

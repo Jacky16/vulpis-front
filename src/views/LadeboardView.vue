@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="max-h-max">
     <TableLadeboard></TableLadeboard>
   </main>
 </template>
