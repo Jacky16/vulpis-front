@@ -1,38 +1,39 @@
 <template>
-  <div class="container mx-auto flex justify-center">
+  <div
+    class="container mx-auto flex justify-center items-center flex-col gap-4 mt-4"
+  >
+    <h1 class="text-xl md:text-2xl font-bold transition-all">
+      Tabla de posiciones
+    </h1>
     <table
-      class="table-fixed my-8 border-2 text-center border-gray-300 drop-shadow-lg w-screen text-sxs sm:text-sm md:text-base md:w-auto"
+      class="border-2 text-center border-gray-300 drop-shadow-lg w-screen text-sxs sm:text-sm md:text-base md:w-auto rounded-2xl"
     >
       <thead>
         <tr>
-          <th class="py-2 px-4 bg-blue-500 text-white">Name</th>
-          <th class="py-2 px-4 bg-blue-500 text-white">Elo</th>
-          <th class="py-2 px-4 bg-blue-500 text-white">Victories</th>
-          <th class="py-2 px-4 bg-blue-500 text-white">Defeats</th>
-          <th class="py-2 px-4 bg-blue-500 text-white">Non Shows</th>
+          <th class="main-row">Name</th>
+          <th class="main-row">Elo</th>
+          <th class="main-row">Victories</th>
+          <th class="main-row">Defeats</th>
+          <th class="main-row">Non Shows</th>
         </tr>
       </thead>
 
       <tbody>
-        <tr
-          class="text-black bg-slate-100 hover:bg-blue-400 hover:text-white hover:w-4 transition-all duration-300 h-4 ease-in-out"
-          v-for="player in playersData"
-          :key="player.id"
-        >
-          <td class="p-4">
-            {{ player.attributes.name }}
+        <tr class="row" v-for="player in playersData" :key="player.id">
+          <td class="element-row">
+            {{ player.name }}
           </td>
-          <td class="p-4">
-            {{ player.attributes.elo }}
+          <td class="element-row">
+            {{ player.elo }}
           </td>
-          <td class="p-4">
-            {{ player.attributes.victories }}
+          <td class="element-row">
+            {{ player.victories }}
           </td>
-          <td class="p-4">
-            {{ player.attributes.defeats }}
+          <td class="element-row">
+            {{ player.defeats }}
           </td>
-          <td class="p-4">
-            {{ player.attributes.non_shows }}
+          <td class="element-row">
+            {{ player.non_shows }}
           </td>
         </tr>
       </tbody>
@@ -40,12 +41,12 @@
   </div>
 </template>
 <script setup>
-import { computed, onMounted, ref } from "vue";
+import { onMounted, ref } from "vue";
+import getPlayers from "../fetchAPI.js";
 const playersData = ref([]);
 
 onMounted(async () => {
-  const response = await fetch("http://localhost:1337/api/players");
-  const data = await response.json();
-  playersData.value = data.data;
+  const players = await getPlayers();
+  playersData.value = players;
 });
 </script>
