@@ -4,5 +4,5 @@
   </main>
 </template>
 <script setup>
-import TableLadeboard from "../components/TableLadeboard.vue";
+import TableLadeboard from "../components/tables/TableLadeboard.vue";
 </script>

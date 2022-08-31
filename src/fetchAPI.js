@@ -1,24 +1,36 @@
+// console.log(import.meta.env.PROD);
 const BASE_URL = import.meta.env.VITE_BASE_URL;
-console.log(import.meta.env.PROD);
+
 async function getPlayers() {
   const response = await fetch(`${BASE_URL}/players`);
   const data = await response.json();
-  return getInfoPlayer(Object.values(data.data));
+  let dataToSend = null;
+  if (response.ok) dataToSend = getInfoPlayer(Object.values(data.data));
+
+  return {
+    data: dataToSend,
+    res: response,
+  };
 }
 
 async function getBrackets() {
   const response = await fetch(`${BASE_URL}/brackets?populate=*`);
   const data = await response.json();
-  const array = Object.values(data.data);
-  return array.map((bracket) => {
-    const object = {
-      week: bracket.attributes.week,
-      linkBracket: bracket.attributes.link_bracket,
-      players: getInfoPlayer(bracket.attributes.players.data),
-      mediumElo: calcMediumRating(bracket.attributes.players.data),
-    };
-    return object;
-  });
+  let arrayBrackets = null;
+  if (response.ok)
+    arrayBrackets = Object.values(data.data).map((bracket) => {
+      const object = {
+        week: bracket.attributes.week,
+        linkBracket: bracket.attributes.link_bracket,
+        players: getInfoPlayer(bracket.attributes.players.data),
+        mediumElo: calcMediumRating(bracket.attributes.players.data),
+      };
+      return object;
+    });
+  return {
+    data: arrayBrackets,
+    res: response,
+  };
 }
 
 const getInfoPlayer = (array) => {
