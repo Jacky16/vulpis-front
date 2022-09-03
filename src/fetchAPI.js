@@ -47,7 +47,7 @@ const getInfoPlayer = (array) => {
 };
 const calcMediumRating = (array) => {
   const sum = array.reduce((acc, cur) => acc + cur.attributes.elo, 0);
-  return sum / array.length;
+  return Math.round(sum / array.length);
 };
 
 export { getPlayers, getBrackets, getInfoPlayer as default };

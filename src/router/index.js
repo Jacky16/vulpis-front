@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Ladeboard from "@/views/LadeboardView.vue";
+import Leaderboard from "@/views/LadeboardView.vue";
 import HistorialView from "@/views/HistorialView.vue";
 import AspirantesView from "@/views/AspirantesView.vue";
 const router = createRouter({
@@ -7,8 +7,8 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      name: "Laderboard",
-      component: Ladeboard,
+      name: "Leaderboard",
+      component: Leaderboard,
     },
     {
       path: "/historial",

@@ -29,6 +29,11 @@
               {{ play.name }}
             </td>
             <td>{{ bracketsData[index].mediumElo }}</td>
+            <td>
+              <a :href="bracketsData[index].linkBracket" target="_blank"
+                >Link</a
+              >
+            </td>
           </tr>
         </thead>
       </table>
@@ -55,10 +60,14 @@ const columns = [
   "Jugador 7",
   "Jugador 8",
   "Elo Medio",
+  "Link Bracket",
 ];
 onMounted(async () => {
   const { data, res } = await getBrackets();
-  if (data != null) playersInBrackets.value = data.map((el) => el.players);
+  if (data != null) {
+    playersInBrackets.value = data.map((el) => el.players);
+    bracketsData.value = data;
+  }
   isResponse.value = res;
 });
 </script>

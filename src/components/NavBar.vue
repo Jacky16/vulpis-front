@@ -16,7 +16,7 @@
 <script setup>
 const menuItems = [
   {
-    name: "Ladeboard",
+    name: "Leaderboard",
     path: "/",
   },
   {

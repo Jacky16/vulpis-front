@@ -1,8 +1,8 @@
 <template>
   <main class="max-h-max">
-    <TableLadeboard></TableLadeboard>
+    <TableLeaderboard />
   </main>
 </template>
 <script setup>
-import TableLadeboard from "../components/tables/TableLadeboard.vue";
+import TableLeaderboard from "../components/tables/TableLeaderboard.vue";
 </script>
