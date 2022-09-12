@@ -14,24 +14,50 @@ async function getPlayers() {
 }
 
 async function getBrackets() {
-  const response = await fetch(`${BASE_URL}/brackets?populate=*`);
+  const response = await fetch(
+    `${BASE_URL}/brackets?populate[player_list][populate]=*`
+  );
   const data = await response.json();
-  let arrayBrackets = null;
-  if (response.ok)
-    arrayBrackets = Object.values(data.data).map((bracket) => {
-      const object = {
-        week: bracket.attributes.week,
-        linkBracket: bracket.attributes.link_bracket,
-        players: getInfoPlayer(bracket.attributes.players.data),
-        mediumElo: calcMediumRating(bracket.attributes.players.data),
-      };
-      return object;
-    });
+  let bracketArray = Object.values(data.data);
+  bracketArray = refactorBracketArray(bracketArray);
   return {
-    data: arrayBrackets,
+    data: bracketArray,
     res: response,
   };
 }
+
+const refactorBracketArray = (array) => {
+  //Obtener array de todas las semanas
+  array = array.map((el) => {
+    const { week } = el.attributes;
+    let { player_list } = el.attributes;
+    //Obtenemos Array de los jugadores de cada semana de cada grupo de brackets
+    player_list = player_list.map((bracket) => {
+      let { id, link, players } = bracket;
+
+      // Array de los jugadores de cada semana
+      players = Object.values(players).map((player) => {
+        const elo = calcMediumRating(player);
+        const players = getInfoPlayer(player);
+        return {
+          players: players,
+          mediumElo: elo,
+        };
+      });
+      return {
+        id: id,
+        linkPlayer: link,
+        playerList: players,
+      };
+    });
+    return {
+      week: week,
+      playerList: player_list,
+    };
+  });
+
+  return array;
+};
 
 const getInfoPlayer = (array) => {
   return array.map((el) => {

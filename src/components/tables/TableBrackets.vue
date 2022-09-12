@@ -65,8 +65,9 @@ const columns = [
 onMounted(async () => {
   const { data, res } = await getBrackets();
   if (data != null) {
-    playersInBrackets.value = data.map((el) => el.players);
-    bracketsData.value = data;
+    console.log(data);
+    // playersInBrackets.value = data.map((el) => el.players);
+    // bracketsData.value = data;
   }
   isResponse.value = res;
 });
